@@ -17,6 +17,7 @@ variable "names" {
 variable "firewall_pip_name" {
   description = "Firewall Public IP name"
   type = string
+  default = null # defaulted to null to create name based on names metadata
 }
 
 variable "tags" {
