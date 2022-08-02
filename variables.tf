@@ -8,6 +8,12 @@ variable "location" {
   type = string
 }
 
+variable "names" {
+  description = "Names to be applied to resources."
+  type        = map(string)
+  default     = null
+}
+
 variable "firewall_pip_name" {
   description = "Firewall Public IP name"
   type = string
