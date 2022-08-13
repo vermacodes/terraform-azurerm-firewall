@@ -91,3 +91,58 @@ variable "firewall_pip_sku" {
     error_message = "Firewall pubic IP can be of 'Standard' or 'Basic' type."
   }
 }
+
+variable "firewall_network_rules" {
+  description = "Firewall Network Rules"
+  type = map(object({
+    name         = string
+    priority     = number
+    action       = string
+    rules = list(object({
+      name                  = string
+      description           = string
+      source_addresses      = list(string)
+      destination_ports     = list(string)
+      destination_addresses = list(string)
+      protocols             = list(string)
+    }))
+  }))
+  default     = {}
+}
+
+variable "firewall_nat_rules" {
+  description = "Firewall NAT Rules"
+  type = map(object({
+    name         = string
+    priority     = number
+    rules = list(object({
+      name               = string
+      description        = string
+      source_addresses   = list(string)
+      destination_ports  = list(string)
+      protocols          = list(string)
+      translated_address = string
+      translated_port    = number
+    }))
+  }))
+  default     = {}
+}
+
+variable "firewall_application_rules" {
+  description = "Firewall Applicaiton Rules."
+  type = map(object({
+    name        = string
+    priority    = number
+    action      = string
+    rules = list(object({
+      name             = string
+      source_addresses = list(string)
+      target_fqdns     = list(string)
+      protocol = list(object({
+        port = string
+        type = string
+      }))
+    }))
+  }))
+  default = {}
+}
